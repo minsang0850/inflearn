@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hello.jdbc.service.MemberServiceV4Test" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-01-05T15:34:00" hostname="1101728M01" time="0.326">
+  <properties/>
+  <testcase name="이체중 예외 발생" classname="hello.jdbc.service.MemberServiceV4Test" time="0.308"/>
+  <testcase name="AopCheck()" classname="hello.jdbc.service.MemberServiceV4Test" time="0.004"/>
+  <testcase name="정상이체" classname="hello.jdbc.service.MemberServiceV4Test" time="0.012"/>
+  <system-out><![CDATA[00:33:59.639 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [MemberServiceV4Test]: using SpringBootContextLoader
+00:33:59.643 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [hello.jdbc.service.MemberServiceV4Test]: no resource found for suffixes {-context.xml, Context.groovy}.
+00:33:59.657 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [MemberServiceV4Test]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
+00:33:59.711 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/a1101728/Desktop/Study/springDB1/jdbc/build/classes/java/main/hello/jdbc/JdbcApplication.class]
+00:33:59.713 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration hello.jdbc.JdbcApplication for test class hello.jdbc.service.MemberServiceV4Test
+00:33:59.757 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [MemberServiceV4Test]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+00:33:59.758 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [MemberServiceV4Test], class annotated with @DirtiesContext [false] with mode [null]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.0)
+
+2023-01-06T00:33:59.881+09:00  INFO 66239 --- [    Test worker] hello.jdbc.service.MemberServiceV4Test   : Starting MemberServiceV4Test using Java 17.0.3 with PID 66239 (started by a1101728 in /Users/a1101728/Desktop/Study/springDB1/jdbc)
+2023-01-06T00:33:59.882+09:00  INFO 66239 --- [    Test worker] hello.jdbc.service.MemberServiceV4Test   : No active profile set, falling back to 1 default profile: "default"
+2023-01-06T00:34:00.483+09:00  INFO 66239 --- [    Test worker] hello.jdbc.service.MemberServiceV4Test   : Started MemberServiceV4Test in 0.699 seconds (process running for 1.4)
+2023-01-06T00:34:00.649+09:00  INFO 66239 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-06T00:34:00.739+09:00  INFO 66239 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:tcp://localhost/~/test user=SA
+2023-01-06T00:34:00.740+09:00  INFO 66239 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-06T00:34:00.803+09:00  INFO 66239 --- [    Test worker] hello.jdbc.service.MemberServiceV4Test   : memberService class=class hello.jdbc.service.MemberServiceV4$$SpringCGLIB$$0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
