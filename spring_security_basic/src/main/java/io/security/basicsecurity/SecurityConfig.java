@@ -1,12 +1,15 @@
 package io.security.basicsecurity;
 
-import org.springframework.beans.factory.annotation.Autowired;import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetailsService;import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -36,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addLogoutHandler(new LogoutHandler() {
                     @Override
                     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-                        HttpSession session  = request.getSession();
+                        HttpSession session = request.getSession();
                         session.invalidate();
                     }
                 }) //로그아웃 핸들러
@@ -53,6 +56,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(3600) //Default는 14일
                 .alwaysRemember(false) //remember me 기능이 활성화되지 않아도 항상 실행
                 .userDetailsService(userDetailsService)
-                ;
+        ;
+
+        http.sessionManagement()
+                .invalidSessionUrl("/invalid")
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true); //동시 로그인 차단함, false: 기존 세션 만료(default)
+//                .expiredUrl("/expired") //세연이 만료된 경우 이동할 페이지
+
+        http.sessionManagement()
+                .sessionFixation().none(); // none, migrateSession, newSession
+
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
     }
 }
