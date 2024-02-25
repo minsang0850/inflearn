@@ -2,6 +2,7 @@ package io.security.basicsecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,47 +28,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("user").password("{noop}1111").roles("USER");
+        auth.inMemoryAuthentication().withUser("sys").password("{noop}1111").roles("SYS");
+        auth.inMemoryAuthentication().withUser("admin").password("{noop}1111").roles("ADMIN");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.authorizeRequests() //요청에 대한 보안 검사
-                .anyRequest().authenticated(); //어떤 보안 요청에도 인증을 받도록
-        http.formLogin(); //인증은 기본적으로 formLogin 방식으로
-
-        http.logout()   //로그아웃 처리
-                .logoutUrl("/logout") //로그아웃 처리 URL
-                .logoutSuccessUrl("/login") //로그아웃 성공 후 이동페이지
-                .addLogoutHandler(new LogoutHandler() {
-                    @Override
-                    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-                        HttpSession session = request.getSession();
-                        session.invalidate();
-                    }
-                }) //로그아웃 핸들러
-                .logoutSuccessHandler(new LogoutSuccessHandler() {
-                    @Override
-                    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                        response.sendRedirect("/login");
-                    }
-                }) //로그아웃 성공 후 핸들러
-                .deleteCookies("remember-me"); //삭제하고 싶은 쿠키명
-
-        http.rememberMe()
-                .rememberMeParameter("remember") //기본 파라미터명은 remember-me
-                .tokenValiditySeconds(3600) //Default는 14일
-                .alwaysRemember(false) //remember me 기능이 활성화되지 않아도 항상 실행
-                .userDetailsService(userDetailsService)
-        ;
-
-        http.sessionManagement()
-                .invalidSessionUrl("/invalid")
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(true); //동시 로그인 차단함, false: 기존 세션 만료(default)
-//                .expiredUrl("/expired") //세연이 만료된 경우 이동할 페이지
-
-        http.sessionManagement()
-                .sessionFixation().none(); // none, migrateSession, newSession
-
-        http.sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+        http.authorizeRequests()
+                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/admin/pay").hasRole("ADMIN")
+                .antMatchers("/admin/**").access("hasRole('ADMIN') or hasRole('SYS')")
+                .anyRequest().authenticated();
+        http.formLogin();
     }
 }
